@@ -457,7 +457,7 @@
      sites:["정글 락 트레일 — 중급, 1시간 30분, 폭포 2개와 짧은 하강","마운틴 트레일 — 상급, 60분, 리조트 전경 조망","얼티밋 닌반베이 트레일 — 문의"],
      inc:["가이드","생수","구급 키트"],
      note:"정글 락 트레일은 10세 미만 동반 비권장. 운동화 필수(플립플롭 금지), 모자·선글라스·방충제 준비.",
-     opts:[{l:"무료 (가이드 동반)",p:0,u:"g"},{l:"프라이빗 (1인당)",p:0,u:"o"}]}
+     opts:[{l:"무료 (가이드 동반)",p:0,u:"g"},{l:"프라이빗 추가 요금 (1인당)",p:0,u:"o",txt:"+US$20 / 인"}]}
   ];
 
   /* 스파 — 금액은 1인 기준(VND). PDF의 “1,895” = 1,895,000 VND */
@@ -538,7 +538,7 @@
 
     {id:"sp-pkg-couple", cat:"pkg", title:"로맨틱 러브 하이드어웨이 (커플)", en:"L'Alya Romantic Love Hideaway",
      desc:"2시간 30분 — 허브 족욕 → 오렌지 바디 스크럽 → 전신 마사지 → 미니 페이셜 → 빌라 내 밀크 배스(꽃).",
-     badge:"2인 1세트", opts:[{l:"커플 1세트 (2인)",p:7695000,u:"g"}]},
+     badge:"2인 1세트", unitHint:"2인 세트", opts:[{l:"커플 1세트 (2인)",p:7695000,u:"g"}]},
     {id:"sp-pkg-viet", cat:"pkg", title:"베트남 웰니스 익스피리언스", en:"Vietnamese Wellness Experience",
      desc:"3시간 — 허브 족욕 → 바디 스크럽 → 베트남식 + 부항 → 무환자나무 열매·천연 추출 허브 샴푸 → 내추럴 페이셜.",
      opts:[{l:"1인",p:3735000,u:"p"}]},
@@ -564,16 +564,16 @@
      desc:"", opts:[{l:"30분",p:950000,u:"p"}]},
 
     {id:"sp-yoga", cat:"act", title:"하타 요가 클래스 (프라이빗)", en:"Hatha yoga class",
-     desc:"홈페이지 기준 그룹 요가·타이치·명상은 무료 프로그램이지만, 이 요금은 프라이빗 클래스 기준입니다.",
+     desc:"홈페이지 기준 그룹 요가·타이치·명상은 무료 프로그램이지만, 이 요금은 프라이빗 클래스 기준입니다.", unitHint:"2인 세트",
      opts:[{l:"1인",p:1450000,u:"p"},{l:"2인 (1인 + 2인째 500,000)",p:1950000,u:"g"}]},
     {id:"sp-coconut", cat:"act", title:"코코넛 오일 만들기 워크숍", en:"Coconut oil making workshop",
-     desc:"", opts:[{l:"1인",p:1350000,u:"p"},{l:"2인 (1인 + 2인째 500,000)",p:1850000,u:"g"}]},
+     desc:"", unitHint:"2인 세트", opts:[{l:"1인",p:1350000,u:"p"},{l:"2인 (1인 + 2인째 500,000)",p:1850000,u:"g"}]},
     {id:"sp-sauna", cat:"act", title:"사우나", en:"Sauna",
-     desc:"", opts:[{l:"60분 · 1~2인",p:1350000,u:"g"}]},
+     desc:"", unitHint:"1~2인 세트", opts:[{l:"60분 · 1~2인",p:1350000,u:"g"}]},
 
     {id:"sp-bath", cat:"bath", title:"럭셔리 인빌라 배스", en:"Luxury In-Villa Bath",
      desc:"허벌 배스(쑥·생강 / 레몬그라스·판단 / 와일드 베텔·폴리시아스 / 타마린드·구아바), 코코넛 밀크 배스, 초콜릿 드림 배스, 씨위드 배스 중 선택. 해질 무렵이 가장 좋습니다.",
-     badge:"24시간 전 예약",
+     badge:"24시간 전 예약", unitHint:"1회",
      opts:[{l:"구성 A · 과일·크래커·코코넛 2개 또는 스무디 2잔",p:1450000,u:"g"},
            {l:"구성 B · 칼라마타 올리브·스파클링/하우스 와인",p:1770000,u:"g"}]}
   ];
@@ -687,9 +687,11 @@
       const key = src + ":" + it.id + ":" + i;
       const addable = o.u !== "o";
       const inCart = !!state.cart[key];
-      const unit = o.u === "p" ? "1인" : (o.u === "g" ? "2인/세트" : "");
-      const priceTxt = o.p === 0 ? "무료" : fmtV(o.p) + " VND";
-      const sub = src === "ex" && o.u === "g" ? "2인 기준" : (o.u === "p" ? "/ 1인" : (o.u === "o" ? "추가 요금" : (src === "sp" ? "/ 1인" : "")));
+      const priceTxt = o.txt || (o.p === 0 ? "무료" : fmtV(o.p) + " VND");
+      let sub = "";
+      if(o.u === "o") sub = "추가 요금";
+      else if(o.u === "p") sub = "/ 1인";
+      else if(o.u === "g") sub = it.unitHint || (src === "ex" ? "2인 기준" : "세트");
       const right = addable
         ? '<button class="add' + (inCart ? " on" : "") + '" data-add="' + key + '" aria-label="담기"><span class="plus">+</span></button>'
         : '';
