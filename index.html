@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0E3B2E" />
-<title>2027 나트랑 랄리아 닌반베이 3박 가이드 (2인 기준)</title>
-<meta name="description" content="2027년 1월, 랄리아 닌반베이 3박 일정 템플릿과 익스커션·스파 요금, 2인 기준 예상 비용 계산기." />
+<title>2027 나트랑 랄리아 닌반베이 4박 6일 가이드 (2인 기준)</title>
+<meta name="description" content="2027년 1월, 에어로케이 청주↔나트랑 4박 6일 — 랄리아 닌반베이 3박 일정 템플릿과 익스커션·스파 요금, 2인 기준 예상 비용 계산기." />
 <style>
   :root{
     --green:#0E3B2E; --green2:#14523F; --green3:#1E6B52; --green4:#2E8A6A;
@@ -43,6 +43,14 @@
   .seg button.on{background:#F4EFDF; color:#0E3B2E; box-shadow:0 2px 8px -4px rgba(0,0,0,.6);}
   .top .meta{margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; font-size:11.5px; color:#C9DCCF;}
   .pill-s{background:rgba(244,239,223,.13); border:1px solid rgba(244,239,223,.22); padding:3px 9px; border-radius:999px;}
+  .flight{display:flex; flex-direction:column; gap:8px; margin-top:10px;}
+  .fseg{display:flex; align-items:center; gap:10px; background:#F6F3E9; border:1px solid var(--line); border-radius:13px; padding:10px 11px;}
+  .fseg .fl{flex:0 0 auto; font-size:10.5px; font-weight:800; color:#F5F0E2; background:var(--green3); border-radius:6px; padding:3px 7px; white-space:nowrap;}
+  .fseg .fb{flex:1; min-width:0;}
+  .fseg .fb b{display:block; font-size:11.5px; color:var(--muted); font-weight:800;}
+  .fseg .fb .froute{display:block; font-size:12.5px; font-weight:700; color:#22352B; letter-spacing:-0.01em;}
+  .fseg .fb .froute em{font-style:normal; font-size:10.5px; color:var(--gold); font-weight:800;}
+  .fseg .fno{flex:0 0 auto; font-size:10.5px; font-weight:800; color:#8A6E33; background:#F4EBD6; border:1px solid #E6D7B4; border-radius:6px; padding:2px 6px; white-space:nowrap;}
 
   /* ---------- layout ---------- */
   main{padding:14px 14px 6px;}
@@ -189,20 +197,20 @@
 
   <header class="top">
     <div class="kicker">Ninh Van Bay · Vietnam</div>
-    <h1>2027 나트랑 랄리아 닌반베이<br>3박 가이드 <span style="font-weight:700;font-size:14px;color:#DCE9DF">(2인 기준)</span></h1>
+    <h1>2027 나트랑 랄리아 닌반베이<br>4박 6일 가이드 <span style="font-weight:700;font-size:14px;color:#DCE9DF">(2인 기준)</span></h1>
     <div class="sub">
-      <span id="topRange">1/12(화) ~ 1/15(금) · 3박 4일</span>
+      <span id="topRange">1/11(월)~1/16(토) · 랄리아 1/12~15</span>
       <span class="dot">•</span>
       <span id="topDday">출발까지 계산 중</span>
     </div>
     <div class="seg" id="dateSeg">
-      <button data-date="a" class="on">1/12(화)~1/15(금)</button>
-      <button data-date="b">1/19(화)~1/22(금)</button>
+      <button data-date="a" class="on">1/11(월)~1/16(토) · 랄리아 1/12~15</button>
+      <button data-date="b">1/18(월)~1/23(토) · 랄리아 1/19~22</button>
     </div>
     <div class="meta">
       <span class="pill-s">체크인 14:00</span>
       <span class="pill-s">체크아웃 12:00</span>
-      <span class="pill-s">2인 · 3박</span>
+      <span class="pill-s">2인 · 4박 6일</span>
     </div>
   </header>
 
@@ -210,7 +218,27 @@
     <!-- ============ 1. 일정 ============ -->
     <section class="panel on" id="panel-plan">
       <div class="card">
-        <h2>3박 타임라인 템플릿<span class="en">화요일 도착 → 금요일 출발</span></h2>
+        <h2>항공 &amp; 첫날 1박<span class="en">에어로케이(Aero K) 청주 ↔ 나트랑 깜라인</span></h2>
+        <div class="flight">
+          <div class="fseg">
+            <span class="fl">가는 편</span>
+            <div class="fb"><b id="fOutDate">1/11(월)</b><span class="froute">청주 CJJ 19:30 → 깜라인 CXR 22:30</span></div>
+            <span class="fno">RF557</span>
+          </div>
+          <div class="fseg">
+            <span class="fl">오는 편</span>
+            <div class="fb"><b id="fBackDate">1/15(금)</b><span class="froute">깜라인 CXR 23:30 → 청주 CJJ 06:20 <em>+1</em></span></div>
+            <span class="fno">에어로케이</span>
+          </div>
+        </div>
+        <p class="tiny muted" style="margin:9px 0 0">출국일 밤 도착이라 <b>나트랑 시내·공항 근처 가성비 호텔에서 1박</b> 후, 다음 날 14:00에 랄리아 닌반베이로 입실합니다. 귀국편은 체크아웃 뒤 저녁까지 시내에서 시간을 보내고 23:30 비행기로 출발합니다.</p>
+        <div class="notice warn" style="margin-top:10px">
+          <b>2026-11 조회 기준 에어로케이 정기편 시간표</b>입니다. 2027-01 예매 시 <b>운항 요일·출도착 시간·편명</b>을 반드시 다시 확인하세요. (겨울 스케줄 변동 가능)
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>4박 6일 타임라인<span class="en">월요일 밤 출국 → 토요일 새벽 귀국</span></h2>
         <p class="small muted" style="margin:2px 0 10px">리조트 보트로만 드나드는 닌반베이 특성상, 하루에 큰 일정은 하나씩만 두는 편이 좋습니다. 아래 시간은 리조트 안내 기준 예약 시각입니다.</p>
         <div id="timeline"></div>
       </div>
@@ -600,12 +628,12 @@
 
   /* ============ dates ============ */
   const RANGES = {
-    a:{start:"2027-01-12", end:"2027-01-15", label:"1/12(화) ~ 1/15(금)"},
-    b:{start:"2027-01-19", end:"2027-01-22", label:"1/19(화) ~ 1/22(금)"}
+    a:{out:"2027-01-11", back:"2027-01-16", label:"1/11(월)~1/16(토)", resort:"랄리아 1/12~15"},
+    b:{out:"2027-01-18", back:"2027-01-23", label:"1/18(월)~1/23(토)", resort:"랄리아 1/19~22"}
   };
   function dayInfo(i){
     const r = RANGES[state.date];
-    const d = new Date(r.start + "T00:00:00");
+    const d = new Date(r.out + "T00:00:00");
     d.setDate(d.getDate() + i);
     const wd = ["일","월","화","수","목","금","토"][d.getDay()];
     return { m:d.getMonth()+1, d:d.getDate(), wd };
@@ -613,37 +641,54 @@
   function dday(){
     const r = RANGES[state.date];
     const t0 = new Date(); t0.setHours(0,0,0,0);
-    const t1 = new Date(r.start + "T00:00:00");
+    const t1 = new Date(r.out + "T00:00:00");
     const n = Math.round((t1 - t0) / 86400000);
-    return n > 0 ? ("출발까지 D-" + n) : (n === 0 ? "출발일" : "여행 이후");
+    return n > 0 ? ("출국까지 D-" + n) : (n === 0 ? "출국일" : "여행 이후");
   }
 
   /* ============ timeline ============ */
   const PLAN = [
-    [{t:"오전",c:"나트랑 공항 도착 → 리조트 부두에서 보트 이동"},
-     {t:"14:00",c:"<b>체크인</b> · 빌라 배정과 버틀러 소개, 짐 풀기"},
-     {t:"15:00",c:"비치·풀에서 첫 수영, 리조트 산책"},
+    [{t:"17:00",c:"청주공항 도착 · 체크인·수하물 (출발 2시간 전)"},
+     {t:"19:30",c:"<b>청주(CJJ) 출발</b> · 에어로케이 RF557 <span class=\"tag\">시간표 재확인</span>",n:"2026-11 조회 기준 정기편 시간입니다. 2027-01 예약 시 운항 요일·시간 확인."},
+     {t:"22:30",c:"<b>나트랑 깜라인(CXR) 도착</b> · 입국·수하물"},
+     {t:"23:30",c:"<b>시내·공항 근처 가성비 호텔 1박</b>",n:"공항에서 차로 10~20분. 체크인 늦은 시간 가능한 곳으로 예약하세요."}],
+
+    [{t:"08:30",c:"호텔 조식, 느긋한 아침"},
+     {t:"10:00",c:"환전 · 편의점 장보기 · 카페",n:"리조트 내 물가를 고려해 생수·간식은 시내에서 준비해도 좋습니다."},
+     {t:"11:30",c:"시내 점심"},
+     {t:"12:40",c:"호텔 체크아웃 → 랄리아 픽업 지점·부두로 이동"},
+     {t:"14:00",c:"<b>랄리아 닌반베이 체크인</b> · 보트 이동, 빌라 배정·버틀러 소개"},
      {t:"16:00",c:"<b>선셋 & 로맨틱 크루즈</b> <span class=\"tag\">선택 · 16:00 권장</span>",n:"스파클링 와인과 카나페. 오후·저녁 일정은 몇 시간 전 통보로 준비됩니다."},
-     {t:"19:30",c:"첫 저녁 — 도착일은 <b>젯랙 리커버리</b> 스파(2시간)도 잘 맞습니다"}],
+     {t:"19:30",c:"첫 저녁 — <b>젯랙 리커버리</b> 스파(2시간)도 잘 맞습니다"}],
+
     [{t:"06:00",c:"<b>얼리 모닝 낚시 크루즈</b> <span class=\"tag\">선택</span>",n:"조식 전 귀환. 전날 예약 필요."},
      {t:"08:30",c:"<b>가이드 하이킹</b> — 정글 락(1시간 30분) 또는 마운틴(60분) <span class=\"tag\">무료</span>",n:"06:00 크루즈와는 시간이 겹칩니다. 하나만 고르세요."},
      {t:"11:30",c:"<b>정글 피크닉</b> 런치 <span class=\"tag\">선택</span>",n:"폭포 옆 프라이빗 피크닉. 1인 1,325,000 VND."},
      {t:"14:00",c:"<b>스파</b> — 시그니처 마사지 90분 또는 커플 패키지",n:"최소 2시간 전 예약. 패키지는 24시간 전 취소 규정."},
      {t:"17:00",c:"무료 요가·타이치·명상 <span class=\"tag\">시간표 확인</span>",n:"Weekly Activities Schedule 수신 후 확정."},
      {t:"19:00",c:"리조트 저녁 식사"}],
+
     [{t:"09:00",c:"<b>종일 익스커션</b> — 시티 투어 · 양바이 폭포 · 닌호아 마을 · 머드 배스 중 1",n:"전날까지 예약 필수. 종일 일정은 피크닉 도시락 또는 현지 식당 점심 포함."},
      {t:"16:30",c:"귀환 후 휴식, 해변 산책"},
      {t:"18:00",c:"<b>인빌라 배스</b> <span class=\"tag\">선택</span>",n:"24시간 전 예약, 셋업 60분 전 시작 — 그 시간엔 룸 밖에서."},
      {t:"20:00",c:"마지막 밤 — 비치 영화·스파 제품 만들기(무료, 시간표 확인)"}],
+
     [{t:"08:00",c:"마지막 수영 또는 마운틴 트레일(가벼운 코스)"},
      {t:"10:30",c:"짐 정리, 룸차지 내역 확인(스파는 체크아웃 정산)"},
-     {t:"12:00",c:"<b>체크아웃</b> · 보트로 육지 이동"},
-     {t:"13:00",c:"시내 투어·마사지·쇼핑 후 공항으로",n:"비행 시간에 맞춰 역산하세요."}]
+     {t:"12:00",c:"<b>랄리아 체크아웃</b> · 보트로 육지 이동"},
+     {t:"13:00",c:"시내 점심 · 짐 보관" ,n:"호텔이나 시내 업체에 짐을 맡기고 가볍게 움직이세요. 비행기까지 약 10시간이 남아 있습니다."},
+     {t:"15:00",c:"마사지 · 쇼핑 · 카페"},
+     {t:"18:30",c:"저녁 식사"},
+     {t:"21:00",c:"<b>깜라인(CXR) 공항으로 이동</b>",n:"시내에서 40~50분. 출발 2시간 전 도착 권장."},
+     {t:"23:30",c:"<b>나트랑 깜라인(CXR) 출발</b> · 에어로케이",n:"기내에서 자고 아침에 청주 도착하는 일정입니다."}],
+
+    [{t:"06:20",c:"<b>청주(CJJ) 도착</b>"},
+     {t:"07:30",c:"입국 수슘·교통편으로 귀가",n:"1월 청주 새벽은 영삭 아래로 내려갑니다. 겉옷을 기내 가방에 두세요."}]
   ];
 
   function renderTimeline(){
     const box = document.getElementById("timeline");
-    const names = ["도착 & 첫날", "바다 & 스파", "종일 익스커션", "마지막 날"];
+    const names = ["출국 & 나트랑 1박", "랄리아 입실", "바다 & 스파", "종일 익스커션", "체크아웃 & 귀국", "청주 새벽 도착"];
     let html = "";
     PLAN.forEach((rows, i) => {
       const d = dayInfo(i);
@@ -655,23 +700,30 @@
       html += '</div>';
     });
     box.innerHTML = html;
-    document.getElementById("topRange").textContent = RANGES[state.date].label + " · 3박 4일";
+    const r = RANGES[state.date];
+    document.getElementById("topRange").textContent = r.label + " · " + r.resort;
     document.getElementById("topDday").textContent = dday();
+    const od = dayInfo(0), bd = dayInfo(4);
+    const f1 = document.getElementById("fOutDate"), f2 = document.getElementById("fBackDate");
+    if(f1) f1.textContent = od.m + "/" + od.d + "(" + od.wd + ")";
+    if(f2) f2.textContent = bd.m + "/" + bd.d + "(" + bd.wd + ")";
   }
 
   /* ============ checklist ============ */
   const CHECKS = [
-    ["flight","항공·리조트 예약 확정본과 바우처를 휴대폰에 저장"],
-    ["boat","리조트 도착 시간·보트 픽업 시간 확인(체크인 14:00)"],
+    ["flight","에어로케이 2027-01 운항 스케줄·편명 재확인 (2026-11 조회 기준)"],
+    ["hotel","<b>출국일 밤</b> 나트랑 시내·공항 근처 가성비 호텔 1박 예약 (늦은 체크인 가능 여부)"],
+    ["transfer","공항 → 호텔, 호텔 → 랄리아 픽업 지점 이동 수단 확인(그랩·호텔 픽업)"],
+    ["voucher","항공·호텔·리조트 예약 확정본과 바우처를 휴대폰에 저장"],
+    ["boat","리조트 보트 픽업 시간 확인(체크인 14:00)"],
     ["exc","오전·종일 익스커션 후보 확정 → <b>전날까지</b> 예약(전날 20:00 이후 취소 50%)"],
     ["spa","스파 예약(최소 2시간 전) — 패키지는 24시간 전 취소 규정 확인"],
     ["villa","인빌라 배스 원하면 <b>24시간 전</b> 버틀러 예약"],
     ["villspa","인빌라 스파 원하면 1시간 전 예약(+15%)"],
     ["shoes","하이킹용 운동화·모자·선글라스·방충제 (08:30 출발, 플립플롭 금지)"],
-    ["gear","선크림·모자·카메라 — 익스커션 기본 준비물"],
-    ["alcohol","스파 당일은 시술 3시간 전부터 금주, 도착 10분 전 체크인"],
-    ["schedule","도착 후 Weekly Activities Schedule(무료 프로그램) 요청"],
-    ["checkout","체크아웃 12:00 기준으로 마지막 날 일정 역산"]
+    ["luggage","귀국일 12:00 체크아웃 후 밤 23:30까지 <b>짐 보관 장소</b> 확보"],
+    ["night","새벽 도착 대비 목쿠션·겉옷 (청주 1월 새벽 영하)"],
+    ["schedule","도착 후 Weekly Activities Schedule(무료 프로그램) 요청"]
   ];
   function renderChecklist(){
     const box = document.getElementById("checklist");
