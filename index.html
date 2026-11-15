@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0E3B2E" />
+<title>2027 나트랑 랄리아 닌반베이 3박 가이드 (2인 기준)</title>
+<meta name="description" content="2027년 1월, 랄리아 닌반베이 3박 일정 템플릿과 익스커션·스파 요금, 2인 기준 예상 비용 계산기." />
+<style>
+  :root{
+    --green:#0E3B2E; --green2:#14523F; --green3:#1E6B52; --green4:#2E8A6A;
+    --ivory:#F7F3E8; --ivory2:#FBF8F1; --card:#FFFFFF;
+    --line:#E6DECD; --line2:#D8CEB8; --gold:#B99A5B; --gold2:#D9C591;
+    --muted:#6A7A72; --text:#16241D; --danger:#9B3B2E;
+    --shadow:0 1px 2px rgba(14,59,46,.05), 0 10px 24px -18px rgba(14,59,46,.55);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0;}
+  body{
+    background:var(--ivory); color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    font-size:15px; line-height:1.55; letter-spacing:-0.01em;
+    padding-bottom:calc(78px + env(safe-area-inset-bottom));
+  }
+  .app{max-width:520px; margin:0 auto; background:var(--ivory); min-height:100vh; position:relative;}
+
+  /* ---------- header ---------- */
+  header.top{
+    position:sticky; top:0; z-index:30;
+    background:linear-gradient(158deg,#0B3327 0%, #14523F 55%, #1B6049 100%);
+    color:#F3EEE0; padding:calc(14px + env(safe-area-inset-top)) 16px 12px;
+    border-radius:0 0 22px 22px; box-shadow:0 10px 24px -18px rgba(11,51,39,.9);
+  }
+  .top .kicker{font-size:11px; letter-spacing:.16em; color:var(--gold2); font-weight:700; text-transform:uppercase;}
+  .top h1{margin:4px 0 2px; font-size:19px; line-height:1.3; font-weight:800; letter-spacing:-0.02em;}
+  .top .sub{font-size:12px; color:#CFE0D5; display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+  .top .sub .dot{opacity:.5}
+  .seg{display:flex; gap:6px; margin-top:11px; background:rgba(255,255,255,.10); padding:4px; border-radius:13px;}
+  .seg button{
+    flex:1; border:0; background:transparent; color:#D7E7DC; font:inherit; font-size:12.5px; font-weight:700;
+    padding:8px 6px; border-radius:10px; cursor:pointer; transition:.18s;
+  }
+  .seg button.on{background:#F4EFDF; color:#0E3B2E; box-shadow:0 2px 8px -4px rgba(0,0,0,.6);}
+  .top .meta{margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; font-size:11.5px; color:#C9DCCF;}
+  .pill-s{background:rgba(244,239,223,.13); border:1px solid rgba(244,239,223,.22); padding:3px 9px; border-radius:999px;}
+
+  /* ---------- layout ---------- */
+  main{padding:14px 14px 6px;}
+  .panel{display:none; animation:fade .22s ease;}
+  .panel.on{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; box-shadow:var(--shadow); margin-bottom:12px;}
+  .card h2{margin:0 0 3px; font-size:15.5px; font-weight:800; letter-spacing:-0.02em;}
+  .card h2 .en{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.02em; margin-top:2px;}
+  .sec-title{display:flex; align-items:center; gap:8px; margin:18px 2px 9px; font-size:12px; font-weight:800; color:var(--green3); letter-spacing:.06em;}
+  .sec-title::before{content:""; width:5px; height:14px; border-radius:3px; background:var(--gold);}
+  .sec-title .cnt{font-weight:700; color:var(--muted); letter-spacing:0;}
+  .muted{color:var(--muted);}
+  .small{font-size:12px;}
+  .tiny{font-size:11px;}
+  ul.clean{margin:6px 0 0; padding-left:0; list-style:none;}
+  ul.clean li{position:relative; padding-left:13px; font-size:12.5px; color:#3B4B43; margin:3px 0;}
+  ul.clean li::before{content:""; position:absolute; left:2px; top:8px; width:4px; height:4px; border-radius:50%; background:var(--gold);}
+  .divider{height:1px; background:var(--line); margin:11px 0;}
+
+  .chips{display:flex; gap:7px; overflow-x:auto; padding:2px 2px 8px; margin:0 -2px; scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto; border:1px solid var(--line2); background:var(--card); color:#3E5148;
+    font:inherit; font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer; transition:.15s;
+  }
+  .chip.on{background:var(--green2); border-color:var(--green2); color:#F4EFDF; box-shadow:0 4px 12px -8px rgba(20,82,63,.9);}
+
+  /* ---------- timeline ---------- */
+  .day{border-left:2px solid var(--line2); margin-left:7px; padding-left:15px; position:relative; padding-bottom:4px;}
+  .day:last-child{border-left-color:transparent; padding-bottom:0;}
+  .day .dotm{position:absolute; left:-7px; top:13px; width:11px; height:11px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 3px var(--ivory);}
+  .day .dh{display:flex; align-items:baseline; gap:7px; margin:0 0 2px; font-size:14px; font-weight:800;}
+  .day .dh .dnum{color:var(--green4); font-size:11.5px; letter-spacing:.04em;}
+  .day .dh .date{color:var(--muted); font-size:11.5px; font-weight:700;}
+  .day .row{display:flex; gap:9px; padding:5px 0; font-size:13px;}
+  .day .row .t{flex:0 0 46px; color:var(--green3); font-weight:800; font-size:12px; padding-top:1px;}
+  .day .row .c{flex:1; color:#2C3B34;}
+  .day .row .c b{font-weight:700;}
+  .day .row .c .tag{display:inline-block; font-size:10.5px; font-weight:800; color:#8A6E33; background:#F4EBD6; border:1px solid #E6D7B4; border-radius:6px; padding:0 5px; margin-left:4px; vertical-align:1px;}
+
+  /* ---------- checklist ---------- */
+  .chk{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px dashed var(--line);}
+  .chk:last-child{border-bottom:0;}
+  .chk input{appearance:none; -webkit-appearance:none; width:19px; height:19px; flex:0 0 19px; margin:1px 0 0;
+    border:1.5px solid var(--line2); border-radius:6px; background:var(--ivory2); cursor:pointer; position:relative; transition:.15s;}
+  .chk input:checked{background:var(--green3); border-color:var(--green3);}
+  .chk input:checked::after{content:""; position:absolute; left:6px; top:2px; width:4px; height:9px;
+    border:2px solid #fff; border-top:0; border-left:0; transform:rotate(42deg);}
+  .chk label{font-size:13px; color:#2C3B34; cursor:pointer;}
+  .chk input:checked + label{color:var(--muted); text-decoration:line-through;}
+
+  /* ---------- item cards ---------- */
+  .item{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:13px 14px; margin-bottom:10px; box-shadow:var(--shadow);}
+  .item .head{display:flex; justify-content:space-between; gap:10px; align-items:flex-start;}
+  .item h3{margin:0; font-size:14.5px; font-weight:800; line-height:1.35; letter-spacing:-0.02em;}
+  .item h3 .en{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.01em; margin-top:1px;}
+  .badge{flex:0 0 auto; font-size:10.5px; font-weight:800; color:#F5F0E2; background:var(--green3); padding:3px 8px; border-radius:7px; white-space:nowrap;}
+  .badge.free{background:#8A6E33; color:#FBF3DF;}
+  .badge.rain{background:#4A6B7C;}
+  .item .desc{font-size:12.5px; color:#3B4B43; margin:7px 0 0;}
+  .item .meta2{display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 0; font-size:11.5px; color:var(--muted);}
+  .item .meta2 span b{color:var(--green2); font-weight:800;}
+  .prices{margin-top:10px; border-top:1px solid var(--line); padding-top:8px;}
+  .prow{display:flex; align-items:center; gap:8px; padding:5px 0;}
+  .prow .pl{flex:1; font-size:12.5px; color:#2C3B34;}
+  .prow .pv{font-size:13px; font-weight:800; color:var(--green2); white-space:nowrap;}
+  .prow .pv small{display:block; font-size:10px; font-weight:600; color:var(--muted); text-align:right;}
+  .add{
+    flex:0 0 auto; width:28px; height:28px; border-radius:50%; border:1.5px solid var(--green3); background:#fff;
+    color:var(--green3); font-size:17px; font-weight:700; line-height:1; cursor:pointer; display:grid; place-items:center; transition:.15s;
+  }
+  .add:active{transform:scale(.92);}
+  .add.on{background:var(--green3); color:#fff; border-color:var(--green3); font-size:13px;}
+  .add.on::after{content:"✓";}
+  .add.on .plus{display:none;}
+  .prow .note{font-size:11px; color:var(--muted);}
+
+  .notice{background:#F1F6F1; border:1px solid #D9E6DC; border-radius:14px; padding:12px 13px; font-size:12.5px; color:#2F4A3D;}
+  .notice.warn{background:#FBF3E4; border-color:#EBD9B4; color:#6B5326;}
+  .notice.dash{background:var(--ivory2); border:1.5px dashed var(--line2); color:#4A5A52;}
+
+  /* ---------- cart ---------- */
+  .cart-empty{text-align:center; color:var(--muted); font-size:13px; padding:22px 10px; line-height:1.7;}
+  .crow{display:flex; gap:9px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--line);}
+  .crow:last-of-type{border-bottom:0;}
+  .crow .ci{flex:1; min-width:0;}
+  .crow .ci .nm{font-size:13px; font-weight:800; letter-spacing:-0.01em;}
+  .crow .ci .op{font-size:11.5px; color:var(--muted); margin-top:1px;}
+  .crow .ci .pp{font-size:12px; color:var(--green2); font-weight:800; margin-top:2px;}
+  .crow .right{flex:0 0 auto; text-align:right;}
+  .stepper{display:inline-flex; align-items:center; gap:0; border:1px solid var(--line2); border-radius:9px; overflow:hidden; margin-bottom:5px;}
+  .stepper button{width:26px; height:24px; border:0; background:#fff; color:var(--green2); font-size:14px; font-weight:800; cursor:pointer;}
+  .stepper span{min-width:30px; text-align:center; font-size:11.5px; font-weight:800; color:#2C3B34;}
+  .rm{border:0; background:transparent; color:#9AA8A0; font-size:11px; cursor:pointer; text-decoration:underline; padding:0;}
+  .totals{background:linear-gradient(160deg,#123E30,#1B6049); color:#F3EEE0; border-radius:16px; padding:15px; margin-top:12px;}
+  .totals .line{display:flex; justify-content:space-between; font-size:12.5px; color:#CFE0D5; padding:3px 0;}
+  .totals .line b{color:#F3EEE0; font-weight:700;}
+  .totals .grand{display:flex; justify-content:space-between; align-items:baseline; margin-top:9px; padding-top:10px; border-top:1px solid rgba(244,239,223,.22);}
+  .totals .grand .k{font-size:12px; color:var(--gold2); font-weight:800; letter-spacing:.04em;}
+  .totals .grand .v{font-size:20px; font-weight:900; letter-spacing:-0.02em;}
+  .totals .krw{text-align:right; font-size:12.5px; color:#EBD9A8; font-weight:700; margin-top:2px;}
+  .rate{display:flex; align-items:center; gap:8px; margin-top:11px; font-size:11.5px; color:var(--muted); flex-wrap:wrap;}
+  .rate input{width:74px; border:1px solid var(--line2); border-radius:8px; padding:5px 7px; font:inherit; font-size:12px; background:#fff; color:var(--text);}
+  .switch{display:flex; align-items:center; gap:9px; font-size:12.5px; color:#2C3B34; margin-top:12px;}
+  .switch input{appearance:none;-webkit-appearance:none;width:38px;height:22px;border-radius:999px;background:#D9D2C2;position:relative;cursor:pointer;transition:.18s;flex:0 0 38px;}
+  .switch input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.25);}
+  .switch input:checked{background:var(--green3);}
+  .switch input:checked::after{transform:translateX(16px);}
+  .presets{display:flex; gap:8px; margin-bottom:10px;}
+  .presets button{flex:1; border:1px solid var(--green3); background:#fff; color:var(--green2); font:inherit; font-size:12.5px; font-weight:800; padding:9px 6px; border-radius:11px; cursor:pointer;}
+  .presets button:active{background:#EDF4EF;}
+
+  /* ---------- bottom nav ---------- */
+  nav.tabbar{
+    position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:520px; z-index:40;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+    background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding:7px 6px calc(7px + env(safe-area-inset-bottom));
+    box-shadow:0 -8px 24px -20px rgba(14,59,46,.9);
+  }
+  nav.tabbar button{
+    border:0; background:transparent; font:inherit; font-size:10.5px; font-weight:700; color:#84948C;
+    display:flex; flex-direction:column; align-items:center; gap:3px; padding:5px 2px 3px; border-radius:11px; cursor:pointer; position:relative;
+  }
+  nav.tabbar button svg{width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  nav.tabbar button.on{color:var(--green2); background:#F1F6F1;}
+  nav.tabbar .nbadge{position:absolute; top:1px; right:calc(50% - 20px); min-width:16px; height:16px; border-radius:9px; background:var(--gold); color:#fff;
+    font-size:10px; font-weight:800; display:none; place-items:center; padding:0 4px;}
+  nav.tabbar .nbadge.show{display:grid;}
+
+  .toast{
+    position:fixed; left:50%; bottom:calc(88px + env(safe-area-inset-bottom)); transform:translate(-50%, 12px);
+    background:#0E3B2E; color:#F4EFDF; font-size:12.5px; font-weight:700; padding:9px 15px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:.22s; z-index:60; box-shadow:0 10px 24px -12px rgba(0,0,0,.6); max-width:88vw; text-align:center;
+  }
+  .toast.on{opacity:1; transform:translate(-50%,0);}
+  footer.foot{padding:6px 18px 22px; font-size:10.5px; color:#8D9C94; line-height:1.7; text-align:center;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div class="kicker">Ninh Van Bay · Vietnam</div>
+    <h1>2027 나트랑 랄리아 닌반베이<br>3박 가이드 <span style="font-weight:700;font-size:14px;color:#DCE9DF">(2인 기준)</span></h1>
+    <div class="sub">
+      <span id="topRange">1/12(화) ~ 1/15(금) · 3박 4일</span>
+      <span class="dot">•</span>
+      <span id="topDday">출발까지 계산 중</span>
+    </div>
+    <div class="seg" id="dateSeg">
+      <button data-date="a" class="on">1/12(화)~1/15(금)</button>
+      <button data-date="b">1/19(화)~1/22(금)</button>
+    </div>
+    <div class="meta">
+      <span class="pill-s">체크인 14:00</span>
+      <span class="pill-s">체크아웃 12:00</span>
+      <span class="pill-s">2인 · 3박</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ 1. 일정 ============ -->
+    <section class="panel on" id="panel-plan">
+      <div class="card">
+        <h2>3박 타임라인 템플릿<span class="en">화요일 도착 → 금요일 출발</span></h2>
+        <p class="small muted" style="margin:2px 0 10px">리조트 보트로만 드나드는 닌반베이 특성상, 하루에 큰 일정은 하나씩만 두는 편이 좋습니다. 아래 시간은 리조트 안내 기준 예약 시각입니다.</p>
+        <div id="timeline"></div>
+      </div>
+
+      <div class="sec-title">사전 준비 체크리스트</div>
+      <div class="card" id="checklist"></div>
+
+      <div class="sec-title">꼭 알아둘 예약 규칙</div>
+      <div class="card">
+        <ul class="clean">
+          <li><b>익스커션</b> — 오전·종일 일정은 <b>전날</b>까지, 오후·저녁 일정은 출발 몇 시간 전까지 리조트에 알리면 됩니다.</li>
+          <li><b>익스커션 취소</b> — 예약일 <b>전날 20:00 이후</b> 취소하면 예약 금액의 <b>50%</b>가 부과됩니다. 날씨가 맞지 않으면 리조트가 일정을 취소할 수 있습니다.</li>
+          <li><b>스파</b> — 매일 09:00~21:00, <b>최소 2시간 전</b> 예약(버틀러 또는 스파 리셉션). 시간 변경도 2시간 전 통보, 도착 10분 전 체크인.</li>
+          <li><b>스파 취소</b> — 개별 트리트먼트 2시간 전, <b>패키지는 24시간 전</b>. 이후에는 50%, <b>노쇼는 100%</b> 청구.</li>
+          <li><b>인빌라 스파</b> — 1시간 전 버틀러 예약, 테라피스트는 30분 전 도착, <b>요금 +15%</b> 서비스차지.</li>
+          <li><b>인빌라 배스</b> — <b>24시간 전</b> 예약, 변경·취소는 4시간 전까지. 셋업은 60분 전에 시작하니 그 시간엔 룸 밖에 있어 주세요.</li>
+          <li><b>스파 전 주의</b> — 음주는 트리트먼트 <b>3시간 전</b>부터 금지, 건강 문진서 작성, 임신 중이면 사전 상담.</li>
+          <li><b>결제</b> — 스파는 전액 룸차지로 청구되어 체크아웃 때 정산됩니다.</li>
+        </ul>
+      </div>
+
+      <div class="sec-title">무료 프로그램</div>
+      <div class="card">
+        <div class="notice dash">
+          <b>주간 액티비티 일정표 업데이트 예정</b><br>
+          요가·타이치·카약·부두 낚시·쿠킹/티/커피 클래스·비치 영화·스파 제품 만들기 등은 리조트 홈페이지 기준 <b>무료 프로그램</b>으로 안내되고 있습니다. 다만 요일·시간별 <b>Weekly Activities Schedule</b>은 아직 받지 못해, 도착 후 버틀러에게 시간표를 받아 아래 시간대에 맞춰 끼워 넣으면 됩니다.
+        </div>
+        <ul class="clean" style="margin-top:10px">
+          <li>아침 — 요가 · 타이치 · 명상 (보통 이른 오전, 시간표 확인)</li>
+          <li>낮 — 카약 · 부두 낚시 · 쿠킹/티/커피 클래스</li>
+          <li>저녁 — 비치 영화 · 스파 제품 만들기 워크숍</li>
+        </ul>
+        <p class="tiny muted" style="margin:9px 0 0">※ 스파 메뉴에는 같은 이름의 <b>프라이빗 클래스 유료 요금</b>(하타 요가 60분 1인 1,450,000 VND 등)이 별도로 있습니다. 무료 그룹 프로그램과 구분됩니다.</p>
+      </div>
+
+      <div class="sec-title">리조트 메모</div>
+      <div class="card">
+        <ul class="clean">
+          <li>위치 — Thôn Tân Thành, xã Nam Ninh Hòa, Khánh Hòa, Việt Nam (닌반베이 전용 해변)</li>
+          <li>이동 — 리조트 보트로만 입·출입, 체크인 14:00 / 체크아웃 12:00</li>
+          <li>익스커션 요금에는 영어 가이드, 차량·보트 이동, 서비스차지·정부세, 입장료, 음료(소프트드링크·로컬 맥주)가 포함되고, 종일 일정은 피크닉 도시락이나 현지 식당 점심이 제공됩니다.</li>
+          <li>가격표는 모두 <b>“.000 VND” 단위</b> 표기입니다 — 예: 1,895 = 1,895,000 VND.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 2. 익스커션 ============ -->
+    <section class="panel" id="panel-exc">
+      <div class="card" style="padding:12px 14px">
+        <h2 style="font-size:14.5px">익스커션 &amp; 액티비티<span class="en">2026-11 수신 익스커션 컴펜디엄 전체 항목</span></h2>
+        <p class="small muted" style="margin:4px 0 0">요금은 <b>2인 기준 총액</b>이며 서비스차지·정부세·입장료·음료 포함입니다. 카드의 <b>＋</b>를 누르면 아래 계산기에 담깁니다.</p>
+      </div>
+      <div class="chips" id="exChips"></div>
+      <div id="exList"></div>
+      <div class="notice warn" style="margin-top:6px">
+        <b>예약·취소 한 줄 요약</b><br>
+        오전·종일 일정은 전날까지 예약 → 전날 20:00 이후 취소 시 50% 청구. 오후·저녁 일정은 몇 시간 전 통지만으로 가능. 날씨가 나쁘면 리조트가 취소할 수 있습니다.
+      </div>
+      <div class="notice" style="margin-top:10px">
+        <b>가격표에 없는 항목</b><br>
+        시즌 수확 체험(Seasonal harvest), 얼티밋 닌반베이 트레일(The Ultimate Ninh Van Bay Trail)은 소개만 있고 요금표에는 없습니다 — 버틀러에게 문의.
+      </div>
+    </section>
+
+    <!-- ============ 3. 스파 ============ -->
+    <section class="panel" id="panel-spa">
+      <div class="card" style="padding:12px 14px">
+        <h2 style="font-size:14.5px">스파 &amp; 웰니스<span class="en">L'A Spa · 매일 09:00 – 21:00</span></h2>
+        <p class="small muted" style="margin:4px 0 0">요금은 <b>1인 기준</b>(커플 전용·2인 구성은 카드에 표시)이며 서비스차지·정부세 포함입니다. 인빌라에서 받으면 <b>+15%</b>.</p>
+      </div>
+      <div class="chips" id="spaChips"></div>
+      <div id="spaList"></div>
+      <div class="notice" style="margin-top:6px">
+        <b>인빌라 스파</b> — 1시간 전까지 버틀러에게 예약, 테라피스트가 30분 전 도착해 준비, 요금에 <b>15% 서비스차지</b> 추가.<br>
+        <b>인빌라 배스</b> — 24시간 전 예약, 4시간 전까지 변경·취소, 셋업 60분 전 시작(그 사이엔 룸 밖에서).
+      </div>
+      <div class="notice warn" style="margin-top:10px">
+        <b>취소·노쇼</b><br>
+        개별 트리트먼트 2시간 전 / 패키지 24시간 전까지 무료 취소. 이후 50%, 노쇼는 100% 청구. 음주는 시술 3시간 전부터 금지, 도착 10분 전 건강 문진서 작성.
+      </div>
+    </section>
+
+    <!-- ============ 4. 계산기 ============ -->
+    <section class="panel" id="panel-calc">
+      <div class="card">
+        <h2>우리 후보 담기<span class="en">2인 기준 예상 비용 계산기</span></h2>
+        <p class="small muted" style="margin:3px 0 10px">익스커션·스파 카드에서 <b>＋</b>를 누르면 여기에 쌓입니다. 인원은 항목별로 조절할 수 있고, 담은 내용은 이 브라우저에 저장됩니다.</p>
+        <div class="presets">
+          <button data-preset="calm">휴양 콤보 담기</button>
+          <button data-preset="active">액티브 콤보 담기</button>
+        </div>
+        <div id="cartList"></div>
+        <div class="switch">
+          <input type="checkbox" id="inVilla">
+          <label for="inVilla">스파를 인빌라에서 받기 (+15% 서비스차지)</label>
+        </div>
+        <div class="rate">
+          <span>참고 환율 1 VND =</span>
+          <input id="rateInput" type="number" step="0.0001" min="0.001" max="1" inputmode="decimal" />
+          <span>원 (직접 수정 가능)</span>
+        </div>
+        <div class="totals">
+          <div class="line"><span>익스커션 소계</span><b id="sumEx">0 VND</b></div>
+          <div class="line"><span>스파 소계</span><b id="sumSp">0 VND</b></div>
+          <div class="line" id="rowVilla" style="display:none"><span>인빌라 서비스차지 15%</span><b id="sumVilla">0 VND</b></div>
+          <div class="grand"><span class="k">예상 총액 · 2인</span><span class="v" id="sumAll">0 VND</span></div>
+          <div class="krw" id="sumKrw">≈ 0원</div>
+        </div>
+        <p class="tiny muted" style="margin:10px 0 0">※ 리조트 요금표는 서비스차지·정부세 포함가입니다. 실제 청구액은 예약 시점 환율·카드 수수료에 따라 달라지며, 원화 환산은 참고용입니다. 항공·숙박비는 포함되지 않습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    요금 출처 — 리조트 수신 자료(2026-11): Excursion Compendium, L'A Spa Menu.<br>
+    표기 단위 “.000 VND”를 원 단위로 환산해 표시했습니다. 개인 일정·요금은 예약 시점에 다시 확인하세요.
+  </footer>
+</div>
+
+<nav class="tabbar" id="tabbar">
+  <button data-tab="plan" class="on">
+    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="M8 14h3M8 17h6"/></svg>
+    일정
+  </button>
+  <button data-tab="exc">
+    <svg viewBox="0 0 24 24"><path d="M3 17c2.5 1.5 5 1.5 7.5 0S15.5 15.5 18 17"/><path d="M4 13l7-9 7 9"/><path d="M12 4v13"/></svg>
+    익스커션
+  </button>
+  <button data-tab="spa">
+    <svg viewBox="0 0 24 24"><path d="M12 20c0-4 2.5-6.5 5-8-2.5-1.5-5-4-5-8-0 4-2.5 6.5-5 8 2.5 1.5 5 4 5 8z"/><path d="M4 20c1.5-2 3.5-3 6-3.2M20 20c-1.5-2-3.5-3-6-3.2"/></svg>
+    스파
+  </button>
+  <button data-tab="calc">
+    <svg viewBox="0 0 24 24"><path d="M5 4h14l-5 7v7l-4 2v-9L5 4z"/></svg>
+    계산기
+    <span class="nbadge" id="cartBadge">0</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================
+     DATA — 출처: L'Alya Ninh Van Bay 익스커션 컴펜디엄 / 스파 메뉴
+     익스커션 금액 = 2인 기준 총액, 스파 금액 = 1인 기준
+     u: 'g' = 그룹(총액) 최소 단위, 'p' = 1인당, 'o' = 추가요금(담기 불가 안내용)
+     ========================================================= */
+  const EX = [
+    {id:"city-tour", cat:"city", title:"나트랑 시티 투어", en:"Nha Trang City Tour",
+     badge:"09:00 출발",
+     desc:"7세기 참파의 Po Nagar 탑부터 프랑스 식민지 시대 성당, Long Son 사원까지 — 바다 도시의 역사와 상징을 하루에 둘러봅니다.",
+     sites:["Po Nagar 탑","나트랑 성당","Long Son 사원","시내 쇼핑센터","Chong Promontory 바위"],
+     inc:["입장료","점심 & 소프트드링크"],
+     opts:[{l:"2인 프라이빗",p:5395000,u:"g"},{l:"추가 1인",p:1625000,u:"o"}]},
+
+    {id:"real-vietnam", cat:"city", title:"리얼 베트남 디스커버리", en:"Discovery Real Vietnam",
+     badge:"09:00 출발",
+     desc:"시골 풍경과 5곳의 수공예 공방, 고택, Cai 강 크루즈를 묶은 문화 체험. “진짜 베트남의 삶”을 보는 코스입니다.",
+     sites:["시골 풍경 드라이브","수공예 공방 5곳","고택(Ancient house)","Cai 강 크루즈"],
+     inc:["입장료","점심 & 소프트드링크"],
+     opts:[{l:"2인 프라이빗",p:7085000,u:"g"},{l:"추가 1인",p:1625000,u:"o"}]},
+
+    {id:"market-tour", cat:"city", title:"로컬 마켓 투어", en:"Local Market Tour",
+     badge:"06:30 출발",
+     desc:"새벽 시장의 일상으로 들어갑니다. 사이클로를 타고 항구와 수산시장, Dam 시장을 돌며 길거리 음식과 음료를 맛봅니다.",
+     sites:["Luong Son 항구","Xom Moi 수산시장","Dam 시장","나트랑 거리"],
+     inc:["조식 & 음료","사이클로 체험"],
+     opts:[{l:"2인 프라이빗",p:6175000,u:"g"},{l:"추가 1인",p:1365000,u:"o"}]},
+
+    {id:"yangbay", cat:"near", title:"양바이 폭포", en:"Yang Bay Waterfall",
+     badge:"09:00 출발",
+     desc:"전기차로 양바이 공원을 돌며 Yang Bay·Yang Khang 폭포를 보고, 곰·악어 낚시 체험과 라글라이 소수민족 공연까지 즐깁니다.",
+     sites:["양바이 폭포","Yang Khang 폭포","민속 공연","곰·악어 낚시 체험"],
+     inc:["입장료","점심 & 소프트드링크","전기차"],
+     opts:[{l:"2인 프라이빗",p:6825000,u:"g"},{l:"추가 1인",p:2145000,u:"o"}]},
+
+    {id:"ninhhoa", cat:"near", title:"닌호아 전원·공예마을 투어", en:"The Ninh Hoa Rural Tour",
+     badge:"09:00 출발",
+     desc:"라이스페이퍼 말리기, 등나무·대나무 공예, 향초 만들기, 포도 해초 양식, 천일염, 짚자리 짜기 — 마을의 손일을 따라가는 코스.",
+     sites:["라이스페이퍼 공방","등나무·대나무 공예","향초 만들기","포도 해초 양식","천일염 밭","짚자리 공예"],
+     inc:["입장료","점심 & 소프트드링크"],
+     opts:[{l:"2인 프라이빗",p:6565000,u:"g"},{l:"추가 1인",p:1495000,u:"o"}]},
+
+    {id:"snorkel", cat:"cruise", title:"낚시 & 스노클링 크루즈", en:"Fishing & Snorkeling Cruise",
+     badge:"09:00 · 3시간",
+     desc:"전용 보트로 포인트를 돌며 낚시와 산호초 스노클링을 함께 즐깁니다. 장비와 음료가 모두 포함됩니다.",
+     inc:["낚시·스노클링 장비","생수·소프트드링크"],
+     opts:[{l:"전통 낚싯배 · 2인",p:4225000,u:"g"},{l:"전통 낚싯배 · 추가 1인",p:845000,u:"o"},
+           {l:"우드 카타마란 · 4인",p:7475000,u:"g"},{l:"우드 카타마란 · 추가 1인",p:845000,u:"o"}]},
+
+    {id:"fishing", cat:"cruise", title:"얼리 모닝 낚시 크루즈", en:"Fishing Cruise",
+     badge:"06:00 출발",
+     desc:"해 뜨기 전 배를 타고 나가 낚시를 하고, 조식 시간에 맞춰 돌아옵니다. 잡은 것은 방류가 원칙(400g 초과 1마리만 보관).",
+     inc:["낚시 장비","음료"],
+     note:"전통 낚싯배 6:00 — 조식 전 귀환 일정",
+     opts:[{l:"우드 보트 · 2인",p:3185000,u:"g"},{l:"우드 보트 · 추가 1인",p:845000,u:"o"},
+           {l:"우드 카타마란 · 4인",p:6045000,u:"g"},{l:"우드 카타마란 · 추가 1인",p:1235000,u:"o"}]},
+
+    {id:"sunset", cat:"cruise", title:"선셋 & 로맨틱 크루즈", en:"Sunset & Romantic Cruise",
+     badge:"16:00 권장",
+     desc:"닌반베이의 오후를 배 위에서. 스파클링 와인 한 병과 카나페를 곁들이며 섬과 어촌의 이야기를 듣습니다.",
+     inc:["스파클링 와인 1병","카나페"],
+     opts:[{l:"전통 낚싯배 · 2인",p:3315000,u:"g"},{l:"전통 낚싯배 · 추가 1인",p:845000,u:"o"},
+           {l:"우드 카타마란 · 4인",p:6955000,u:"g"},{l:"우드 카타마란 · 추가 1인",p:910000,u:"o"}]},
+
+    {id:"river-mud", cat:"near", title:"리버 투어 & 머드 배스", en:"River Tour & Mud Bath Experience",
+     badge:"09:00 출발",
+     desc:"Cai 강을 따라 대나무·논·물가의 일상을 지나 고택을 보고, 온천 머드 배스 센터에서 하루를 풉니다.",
+     sites:["Cai 강 크루즈","고택","Po Nagar 탑","머드 배스 센터"],
+     inc:["입장료","소프트드링크 & 점심"],
+     opts:[{l:"2인 프라이빗",p:7143500,u:"g"},{l:"추가 1인",p:2145000,u:"o"}]},
+
+    {id:"city-mud", cat:"near", title:"시티 투어 & 머드 배스", en:"City Tour & Mud Bath",
+     badge:"비 오는 날 추천",
+     desc:"나트랑 시내 명소를 돌고 Thap Ba 온천에서 머드 배스로 마무리하는 조합. 우천 시 대안으로 좋습니다.",
+     sites:["Chong Promontory 바위","Po Nagar 탑","나트랑 성당","Long Son 사원","Thap Ba 머드 배스"],
+     inc:["입장료","점심 & 음료"],
+     opts:[{l:"2인 프라이빗",p:6363500,u:"g"},{l:"추가 1인",p:2203500,u:"o"}]},
+
+    {id:"charter", cat:"boat", title:"보트 차터 (자유 일정)", en:"Boat Charter",
+     badge:"하루 설계",
+     desc:"가이드와 함께 원하는 코스로 배를 빌립니다. 피크닉 도시락, 스노클링·낚시 장비는 요청 시 준비됩니다(입장료·체험비 별도).",
+     inc:["보트 & 현지 가이드"],
+     note:"입장료·체험비는 별도. 3시간째부터 시간당, 인원 추가는 별도.",
+     opts:[{l:"전통 낚싯배 · 최초 2시간",p:3055000,u:"g"},
+           {l:"전통 낚싯배 · 3시간째부터 1시간",p:935000,u:"o"},
+           {l:"전통 낚싯배 · 3번째 인원부터 1인",p:845000,u:"o"},
+           {l:"카타마란 · 최초 2시간",p:6045000,u:"g"},
+           {l:"카타마란 · 3시간째부터 1시간",p:2535000,u:"o"},
+           {l:"카타마란 · 5번째 인원부터 1인",p:1235000,u:"o"}]},
+
+    {id:"picnic", cat:"picnic", title:"정글 피크닉", en:"The Jungle Picnic",
+     badge:"11:30 권장",
+     desc:"10분쯤 숲길을 올라 작은 폭포 옆에서 즐기는 프라이빗 피크닉. 메뉴는 취향대로 고릅니다.",
+     inc:["샌드위치 또는 바게트","샐러드","과일 플래터","스파클링 와인 또는 로컬 맥주"],
+     opts:[{l:"1인",p:1325000,u:"p"}]},
+
+    {id:"hike", cat:"hike", title:"가이드 하이킹 (무료)", en:"Hiking Trail Adventures",
+     badge:"08:30 출발", free:true,
+     desc:"경험 많은 가이드와 함께하는 2개 코스. 둘 다 무료이며, 프라이빗으로 원하면 1인당 20 USD가 추가됩니다.",
+     sites:["정글 락 트레일 — 중급, 1시간 30분, 폭포 2개와 짧은 하강","마운틴 트레일 — 상급, 60분, 리조트 전경 조망","얼티밋 닌반베이 트레일 — 문의"],
+     inc:["가이드","생수","구급 키트"],
+     note:"정글 락 트레일은 10세 미만 동반 비권장. 운동화 필수(플립플롭 금지), 모자·선글라스·방충제 준비.",
+     opts:[{l:"무료 (가이드 동반)",p:0,u:"g"},{l:"프라이빗 (1인당)",p:0,u:"o"}]}
+  ];
+
+  /* 스파 — 금액은 1인 기준(VND). PDF의 “1,895” = 1,895,000 VND */
+  const SP = [
+    {id:"sp-viet", cat:"sig", title:"베트남 전통 마사지", en:"Vietnamese Traditional Massage",
+     desc:"드라이 테크닉으로 몸을 데우고 아로마·경혈 압으로 균형을 되찾는 시그니처. 등에 따뜻한 부항을 올려 순환을 돕습니다.",
+     opts:[{l:"60분",p:1895000,u:"p"},{l:"90분",p:2250000,u:"p"}]},
+    {id:"sp-thai", cat:"sig", title:"타이 마사지", en:"Thai Massage",
+     desc:"경혈과 부드러운 스트레칭으로 몸의 에너지 흐름을 깨우는 전통 타이 테크닉.",
+     opts:[{l:"60분",p:1895000,u:"p"},{l:"90분",p:2250000,u:"p"}]},
+    {id:"sp-swedish", cat:"sig", title:"스웨디시 마사지", en:"Swedish Massage",
+     desc:"전신을 부드럽게 눌러 뭉친 근육을 풀고 순환을 돕는 클래식 유럽식 마사지.",
+     opts:[{l:"60분",p:1895000,u:"p"},{l:"90분",p:2250000,u:"p"}]},
+    {id:"sp-thippaya", cat:"sig", title:"팁파야 마사지", en:"Thippaya Massage",
+     desc:"타이 요가에서 온 줄을 이용한 테크닉. 발로 압을 조절해 유연성과 자세를 정돈합니다.",
+     opts:[{l:"60분",p:1895000,u:"p"},{l:"90분",p:2250000,u:"p"}]},
+
+    {id:"sp-sensory", cat:"well", title:"센서리 스파 저니", en:"Sensory Spa Journey",
+     desc:"두 명의 테라피스트가 발부터 어깨까지 동시에 움직이는 2인 시술. 한 명은 발을, 다른 한 명은 얼굴을 맡습니다.",
+     opts:[{l:"60분",p:3050000,u:"p"},{l:"90분",p:4050000,u:"p"}]},
+    {id:"sp-compress", cat:"well", title:"베트남 허브 컴프레스", en:"Vietnamese Hot Compress",
+     desc:"약초 주머니를 따뜻하게 데워 몸에 올려 근육·관절 통증을 풀고 순환을 돕습니다.",
+     opts:[{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-hotstone", cat:"well", title:"핫 스톤 테라피", en:"Hot Stone Therapy",
+     desc:"데운 스톤으로 깊은 이완과 긴장 완화를 이끄는 시술.",
+     opts:[{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-detox", cat:"well", title:"디톡스 테라피", en:"Detox Therapy",
+     desc:"탄력 오일과 빠른 리듬으로 붓기와 셀룰라이트를 다루고 몸의 노폐물 배출을 돕습니다.",
+     opts:[{l:"60분",p:1800000,u:"p"},{l:"90분",p:2340000,u:"p"}]},
+    {id:"sp-deep", cat:"well", title:"딥 티슈", en:"Deep Tissue",
+     desc:"팔꿈치와 전완으로 깊은 근육층까지 눌러 목·어깨·허리 뭉침을 풀어냅니다.",
+     opts:[{l:"60분",p:1700000,u:"p"},{l:"90분",p:2240000,u:"p"}]},
+
+    {id:"sp-foot", cat:"rev", title:"풋 릴랙싱", en:"Foot Relaxing",
+     desc:"발의 압점을 통해 온몸의 균형을 다루는 이완 시술.",
+     opts:[{l:"30분",p:965000,u:"p"},{l:"60분",p:1700000,u:"p"}]},
+    {id:"sp-tension", cat:"rev", title:"릴리프 텐션", en:"Relief Tension",
+     desc:"상체와 등에 집중해 긴장을 풀고 얼굴·두피·어깨까지 함께 다룹니다.",
+     opts:[{l:"60분",p:1700000,u:"p"},{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-indian", cat:"rev", title:"인디안 헤드 테라피", en:"Indian Head Therapy",
+     desc:"아유르베다에서 온 목·어깨 집중 시술로 깊은 안정과 두피 컨디셔닝을 함께.",
+     opts:[{l:"60분",p:1700000,u:"p"},{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-candle", cat:"rev", title:"캔들 테라피", en:"Candle Therapy",
+     desc:"아로마 오일과 가벼운 압으로 이완과 디톡스에 집중하는 시술.",
+     opts:[{l:"60분",p:1700000,u:"p"},{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-bamboo", cat:"rev", title:"밤부 테라피", en:"Bamboo Therapy",
+     desc:"데운 대나무로 굴리고 눌러 근육 통증을 풀고 수면의 질을 돕습니다.",
+     opts:[{l:"90분",p:2240000,u:"p"}]},
+    {id:"sp-prenatal", cat:"rev", title:"프리네이탈 테라피", en:"Prenatal Therapy",
+     desc:"임산부를 위한 안전한 자세와 오일로 허리 통증과 붓기를 다룹니다(사전 상담 필요).",
+     opts:[{l:"60분",p:1700000,u:"p"},{l:"90분",p:2240000,u:"p"}]},
+
+    {id:"sp-facial-viet", cat:"face", title:"베트남 페이셜", en:"Vietnamese Facial",
+     desc:"현지 자연 재료로 클렌징·각질·마사지·팩을 차례로. 60분.",
+     opts:[{l:"60분",p:1450000,u:"p"}]},
+    {id:"sp-facial-purify", cat:"face", title:"퓨리파잉 페이셜", en:"Purifying Facial",
+     desc:"피지 조절과 모공 정돈, 트러블 예방에 집중하는 딥 클렌징.",
+     opts:[{l:"60분",p:1550000,u:"p"}]},
+    {id:"sp-facial-nourish", cat:"face", title:"너리싱 페이셜", en:"Nourishing Facial",
+     desc:"건조하고 성숙한 피부에 수분과 탄력을 채우는 영양 케어.",
+     opts:[{l:"60분",p:1550000,u:"p"}]},
+    {id:"sp-facial-aroma", cat:"face", title:"아로마스킨 페이셜", en:"Aromaskin Facial",
+     desc:"잔주름과 톤을 다루며 브라이트닝·보습을 함께.",
+     opts:[{l:"60분",p:1550000,u:"p"}]},
+    {id:"sp-facial-sooth", cat:"face", title:"수딩 페이셜", en:"Soothing Facial",
+     desc:"민감·자극받은 피부를 식물 추출과 플라워 에센스로 진정.",
+     opts:[{l:"60분",p:1550000,u:"p"}]},
+    {id:"sp-facial-gent", cat:"face", title:"젠틀맨 페이셜", en:"Gentemen Facial",
+     desc:"남성 피부용. 보습과 모공 클렌징, 면도 후 자극 완화.",
+     opts:[{l:"60분",p:1550000,u:"p"}]},
+    {id:"sp-facial-anti", cat:"face", title:"안티에이징 & 리주비네이팅 페이셜", en:"Anti Aging & Rejuvenating Facial",
+     desc:"콜라겐 부스팅과 각질·보습을 함께 다루는 프리미엄 90분 케어.",
+     opts:[{l:"90분",p:2250000,u:"p"}]},
+
+    {id:"sp-body", cat:"body", title:"바디 폴리시 & 코쿤", en:"Body Polish & Cocoon",
+     desc:"스크럽으로 각질을 정리하고 랩으로 감싸 톤과 순환을 살립니다. 구성은 8가지 중 선택 — 오렌지+밀크·요거트 / 녹차 / 히말라야 솔트 / 코코넛 / 선번 소더 / 계절 과일 랩 / 커피·초콜릿 / 씨솔트·알지 랩.",
+     opts:[{l:"45분",p:1350000,u:"p"},{l:"60분",p:1650000,u:"p"}]},
+
+    {id:"sp-pkg-couple", cat:"pkg", title:"로맨틱 러브 하이드어웨이 (커플)", en:"L'Alya Romantic Love Hideaway",
+     desc:"2시간 30분 — 허브 족욕 → 오렌지 바디 스크럽 → 전신 마사지 → 미니 페이셜 → 빌라 내 밀크 배스(꽃).",
+     badge:"2인 1세트", opts:[{l:"커플 1세트 (2인)",p:7695000,u:"g"}]},
+    {id:"sp-pkg-viet", cat:"pkg", title:"베트남 웰니스 익스피리언스", en:"Vietnamese Wellness Experience",
+     desc:"3시간 — 허브 족욕 → 바디 스크럽 → 베트남식 + 부항 → 무환자나무 열매·천연 추출 허브 샴푸 → 내추럴 페이셜.",
+     opts:[{l:"1인",p:3735000,u:"p"}]},
+    {id:"sp-pkg-jetlag", cat:"pkg", title:"젯랙 리커버리", en:"Jet Lag Recovery",
+     desc:"2시간 — 허브 족욕 → L'Alya 너리싱 페이셜 → 발 리플렉솔로지. 첫날 밤에 맞는 구성.",
+     opts:[{l:"1인",p:2025000,u:"p"}]},
+    {id:"sp-pkg-glow", cat:"pkg", title:"디바인 글로우 리트리트", en:"Divine Glow Retreat",
+     desc:"2시간 30분 — 허브 족욕 → 바디 각질 → 바디 랩 → 미니 페이셜 → 젤 네일 매니큐어 또는 페디큐어.",
+     opts:[{l:"1인",p:3330000,u:"p"}]},
+    {id:"sp-pkg-sun", cat:"pkg", title:"래디언트 애프터 선 리추얼", en:"Radiant After Sun Ritual",
+     desc:"100분 — 허브 족욕 → 쿨 타월 컴프레스 → 알로에·오이 바디 랩 → 알로에 젤·비타민E → 얼굴 선번 케어.",
+     opts:[{l:"1인",p:2205000,u:"p"}]},
+
+    {id:"sp-nail", cat:"beauty", title:"매니큐어 / 페디큐어 (일반)", en:"Manicure or Pedicure · Normal polish",
+     desc:"", opts:[{l:"60분",p:950000,u:"p"}]},
+    {id:"sp-nailgel", cat:"beauty", title:"매니큐어 / 페디큐어 (젤)", en:"Manicure or Pedicure · Gel polish",
+     desc:"", opts:[{l:"60분",p:1250000,u:"p"}]},
+    {id:"sp-nailart", cat:"beauty", title:"네일 아트", en:"Nail Art painting",
+     desc:"", opts:[{l:"90분",p:1450000,u:"p"}]},
+    {id:"sp-hair", cat:"beauty", title:"허브 헤어 워시", en:"Herbal hair wash",
+     desc:"", opts:[{l:"45분",p:620000,u:"p"},{l:"60분 · 헤어 케어 포함",p:750000,u:"p"},{l:"75분 · 헤어+페이스 케어",p:1450000,u:"p"}]},
+    {id:"sp-paraffin", cat:"beauty", title:"파라핀 핸드 / 풋", en:"Paraffin hand or foot",
+     desc:"", opts:[{l:"30분",p:950000,u:"p"}]},
+
+    {id:"sp-yoga", cat:"act", title:"하타 요가 클래스 (프라이빗)", en:"Hatha yoga class",
+     desc:"홈페이지 기준 그룹 요가·타이치·명상은 무료 프로그램이지만, 이 요금은 프라이빗 클래스 기준입니다.",
+     opts:[{l:"1인",p:1450000,u:"p"},{l:"2인 (1인 + 2인째 500,000)",p:1950000,u:"g"}]},
+    {id:"sp-coconut", cat:"act", title:"코코넛 오일 만들기 워크숍", en:"Coconut oil making workshop",
+     desc:"", opts:[{l:"1인",p:1350000,u:"p"},{l:"2인 (1인 + 2인째 500,000)",p:1850000,u:"g"}]},
+    {id:"sp-sauna", cat:"act", title:"사우나", en:"Sauna",
+     desc:"", opts:[{l:"60분 · 1~2인",p:1350000,u:"g"}]},
+
+    {id:"sp-bath", cat:"bath", title:"럭셔리 인빌라 배스", en:"Luxury In-Villa Bath",
+     desc:"허벌 배스(쑥·생강 / 레몬그라스·판단 / 와일드 베텔·폴리시아스 / 타마린드·구아바), 코코넛 밀크 배스, 초콜릿 드림 배스, 씨위드 배스 중 선택. 해질 무렵이 가장 좋습니다.",
+     badge:"24시간 전 예약",
+     opts:[{l:"구성 A · 과일·크래커·코코넛 2개 또는 스무디 2잔",p:1450000,u:"g"},
+           {l:"구성 B · 칼라마타 올리브·스파클링/하우스 와인",p:1770000,u:"g"}]}
+  ];
+
+  const EX_CATS = [["all","전체"],["cruise","크루즈"],["city","시내·문화"],["near","근교·액티비티"],["picnic","피크닉·다이닝"],["boat","보트 차터"],["hike","무료 하이킹"]];
+  const SPA_CATS = [["all","전체"],["sig","시그니처"],["well","웰빙"],["rev","리바이탈"],["face","페이셜"],["body","바디"],["pkg","패키지"],["beauty","뷰티"],["act","웰니스 클래스"],["bath","인빌라 배스"]];
+
+  /* ============ state ============ */
+  const KEY = "lalya-nvb-2027-v1";
+  const DEFAULT_RATE = 0.052;
+  let state = { cart:{}, rate:DEFAULT_RATE, date:"a", checks:{}, invilla:false, exCat:"all", spaCat:"all" };
+
+  try{ const raw = localStorage.getItem(KEY); if(raw){ const o = JSON.parse(raw); state = Object.assign(state, o); } }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+  const nf = new Intl.NumberFormat("ko-KR");
+  const fmtV = n => nf.format(Math.round(n));
+  const fmtK = n => "≈ " + nf.format(Math.round(n/1000)*1000) + "원";
+  function krw(v){ return v * (Number(state.rate) || DEFAULT_RATE); }
+
+  const ALL = {};
+  EX.forEach(x => ALL["ex:"+x.id] = x);
+  SP.forEach(x => ALL["sp:"+x.id] = x);
+
+  /* ============ dates ============ */
+  const RANGES = {
+    a:{start:"2027-01-12", end:"2027-01-15", label:"1/12(화) ~ 1/15(금)"},
+    b:{start:"2027-01-19", end:"2027-01-22", label:"1/19(화) ~ 1/22(금)"}
+  };
+  function dayInfo(i){
+    const r = RANGES[state.date];
+    const d = new Date(r.start + "T00:00:00");
+    d.setDate(d.getDate() + i);
+    const wd = ["일","월","화","수","목","금","토"][d.getDay()];
+    return { m:d.getMonth()+1, d:d.getDate(), wd };
+  }
+  function dday(){
+    const r = RANGES[state.date];
+    const t0 = new Date(); t0.setHours(0,0,0,0);
+    const t1 = new Date(r.start + "T00:00:00");
+    const n = Math.round((t1 - t0) / 86400000);
+    return n > 0 ? ("출발까지 D-" + n) : (n === 0 ? "출발일" : "여행 이후");
+  }
+
+  /* ============ timeline ============ */
+  const PLAN = [
+    [{t:"오전",c:"나트랑 공항 도착 → 리조트 부두에서 보트 이동"},
+     {t:"14:00",c:"<b>체크인</b> · 빌라 배정과 버틀러 소개, 짐 풀기"},
+     {t:"15:00",c:"비치·풀에서 첫 수영, 리조트 산책"},
+     {t:"16:00",c:"<b>선셋 & 로맨틱 크루즈</b> <span class=\"tag\">선택 · 16:00 권장</span>",n:"스파클링 와인과 카나페. 전날 예약 불필요, 당일 몇 시간 전 통보 가능."},
+     {t:"19:30",c:"첫 저녁 — 도착일은 <b>젯랙 리커버리</b> 스파(2시간)도 잘 맞습니다"}],
+    [{t:"06:00",c:"<b>얼리 모닝 낚시 크루즈</b> <span class=\"tag\">선택</span>",n:"조식 전 귀환. 전날 예약 필요."},
+     {t:"08:30",c:"<b>가이드 하이킹</b> — 정글 락(1시간 30분) 또는 마운틴(60분) <span class=\"tag\">무료</span>",n:"06:00 크루즈와는 시간이 겹칩니다. 하나만 고르세요."},
+     {t:"11:30",c:"<b>정글 피크닉</b> 런치 <span class=\"tag\">선택</span>",n:"폭포 옆 프라이빗 피크닉. 1인 1,325,000 VND."},
+     {t:"14:00",c:"<b>스파</b> — 시그니처 마사지 90분 또는 커플 패키지",n:"최소 2시간 전 예약. 패키지는 24시간 전 취소 규정."},
+     {t:"17:00",c:"무료 요가·타이치·명상 <span class=\"tag\">시간표 확인</span>",n:"Weekly Activities Schedule 수신 후 확정."},
+     {t:"19:00",c:"리조트 저녁 식사"}],
+    [{t:"09:00",c:"<b>종일 익스커션</b> — 시티 투어 · 양바이 폭포 · 닌호아 마을 · 머드 배스 중 1",n:"전날까지 예약 필수. 종일 일정은 피크닉 도시락 또는 현지 식당 점심 포함."},
+     {t:"16:30",c:"귀환 후 휴식, 해변 산책"},
+     {t:"18:00",c:"<b>인빌라 배스</b> <span class=\"tag\">선택</span>",n:"24시간 전 예약, 셋업 60분 전 시작 — 그 시간엔 룸 밖에서."},
+     {t:"20:00",c:"마지막 밤 — 비치 영화·스파 제품 만들기(무료, 시간표 확인)"}],
+    [{t:"08:00",c:"마지막 수영 또는 마운틴 트레일(가벼운 코스)"},
+     {t:"10:30",c:"짐 정리, 룸차지 내역 확인(스파는 체크아웃 정산)"},
+     {t:"12:00",c:"<b>체크아웃</b> · 보트로 육지 이동"},
+     {t:"13:00",c:"시내 투어·마사지·쇼핑 후 공항으로",n:"비행 시간에 맞춰 역산하세요."}]
+  ];
+
+  function renderTimeline(){
+    const box = document.getElementById("timeline");
+    const names = ["도착 & 첫날", "바다 & 스파", "종일 익스커션", "마지막 날"];
+    let html = "";
+    PLAN.forEach((rows, i) => {
+      const d = dayInfo(i);
+      html += '<div class="day"><span class="dotm"></span>';
+      html += '<div class="dh"><span class="dnum">D' + (i+1) + '</span><span>' + names[i] + '</span><span class="date">' + d.m + "/" + d.d + "(" + d.wd + ")</span></div>";
+      rows.forEach(r => {
+        html += '<div class="row"><span class="t">' + r.t + '</span><div class="c">' + r.c + (r.n ? '<div class="tiny muted" style="margin-top:2px">' + r.n + '</div>' : '') + '</div></div>';
+      });
+      html += '</div>';
+    });
+    box.innerHTML = html;
+    document.getElementById("topRange").textContent = RANGES[state.date].label + " · 3박 4일";
+    document.getElementById("topDday").textContent = dday();
+  }
+
+  /* ============ checklist ============ */
+  const CHECKS = [
+    ["flight","항공·리조트 예약 확정본과 바우처를 휴대폰에 저장"],
+    ["boat","리조트 도착 시간·보트 픽업 시간 확인(체크인 14:00)"],
+    ["exc","오전·종일 익스커션 후보 확정 → <b>전날까지</b> 예약(전날 20:00 이후 취소 50%)"],
+    ["spa","스파 예약(최소 2시간 전) — 패키지는 24시간 전 취소 규정 확인"],
+    ["villa","인빌라 배스 원하면 <b>24시간 전</b> 버틀러 예약"],
+    ["villspa","인빌라 스파 원하면 1시간 전 예약(+15%)"],
+    ["shoes","하이킹용 운동화·모자·선글라스·방충제 (08:30 출발, 플립플롭 금지)"],
+    ["gear","선크림·모자·카메라 — 익스커션 기본 준비물"],
+    ["alcohol","스파 당일은 시술 3시간 전부터 금주, 도착 10분 전 체크인"],
+    ["schedule","도착 후 Weekly Activities Schedule(무료 프로그램) 요청"],
+    ["checkout","체크아웃 12:00 기준으로 마지막 날 일정 역산"]
+  ];
+  function renderChecklist(){
+    const box = document.getElementById("checklist");
+    box.innerHTML = CHECKS.map(([k, t]) =>
+      '<div class="chk"><input type="checkbox" id="ck-' + k + '" data-ck="' + k + '"' + (state.checks[k] ? " checked" : "") + '>' +
+      '<label for="ck-' + k + '">' + t + '</label></div>'
+    ).join("");
+  }
+
+  /* ============ item rendering ============ */
+  function priceRows(src, it){
+    return '<div class="prices">' + it.opts.map((o, i) => {
+      const key = src + ":" + it.id + ":" + i;
+      const addable = o.u !== "o";
+      const inCart = !!state.cart[key];
+      const unit = o.u === "p" ? "1인" : (o.u === "g" ? "2인/세트" : "");
+      const priceTxt = o.p === 0 ? "무료" : fmtV(o.p) + " VND";
+      const sub = src === "ex" && o.u === "g" ? "2인 기준" : (o.u === "p" ? "/ 1인" : (o.u === "o" ? "추가 요금" : (src === "sp" ? "/ 1인" : "")));
+      const right = addable
+        ? '<button class="add' + (inCart ? " on" : "") + '" data-add="' + key + '" aria-label="담기"><span class="plus">+</span></button>'
+        : '';
+      return '<div class="prow"><span class="pl">' + o.l + (o.u === "o" ? ' <span class="note">· 별도</span>' : '') + '</span>' +
+             '<span class="pv">' + priceTxt + (sub ? '<small>' + sub + '</small>' : '') + '</span>' + right + '</div>';
+    }).join("") + '</div>';
+  }
+
+  function itemCard(src, it){
+    const badgeCls = it.free ? "badge free" : (it.badge && it.badge.indexOf("비") === 0 ? "badge rain" : "badge");
+    let html = '<article class="item" id="' + src + '-' + it.id + '">';
+    html += '<div class="head"><h3>' + it.title + '<span class="en">' + it.en + '</span></h3>';
+    if(it.badge) html += '<span class="' + badgeCls + '">' + it.badge + '</span>';
+    html += '</div>';
+    if(it.desc) html += '<p class="desc">' + it.desc + '</p>';
+    if(it.inc || it.note){
+      html += '<div class="meta2">' + (it.inc ? '<span><b>포함</b> ' + it.inc.join(" · ") + '</span>' : '') + '</div>';
+    }
+    if(it.sites) html += '<ul class="clean">' + it.sites.map(s => '<li>' + s + '</li>').join("") + '</ul>';
+    if(it.note) html += '<p class="tiny muted" style="margin:6px 0 0">※ ' + it.note + '</p>';
+    html += priceRows(src, it);
+    html += '</article>';
+    return html;
+  }
+
+  function renderExc(){
+    document.getElementById("exChips").innerHTML = EX_CATS.map(([k, l]) =>
+      '<button class="chip' + (state.exCat === k ? " on" : "") + '" data-excat="' + k + '">' + l + '</button>').join("");
+    const list = EX.filter(x => state.exCat === "all" || x.cat === state.exCat);
+    document.getElementById("exList").innerHTML = list.map(x => itemCard("ex", x)).join("");
+    document.querySelectorAll("[data-excat]").forEach(b => b.onclick = () => { state.exCat = b.dataset.excat; save(); renderExc(); });
+  }
+  function renderSpa(){
+    document.getElementById("spaChips").innerHTML = SPA_CATS.map(([k, l]) =>
+      '<button class="chip' + (state.spaCat === k ? " on" : "") + '" data-spacat="' + k + '">' + l + '</button>').join("");
+    const list = SP.filter(x => state.spaCat === "all" || x.cat === state.spaCat);
+    document.getElementById("spaList").innerHTML = list.map(x => itemCard("sp", x)).join("");
+    document.querySelectorAll("[data-spacat]").forEach(b => b.onclick = () => { state.spaCat = b.dataset.spacat; save(); renderSpa(); });
+  }
+
+  /* ============ cart ============ */
+  function addToCart(key){
+    const [src, id, oi] = key.split(":");
+    const it = ALL[src + ":" + id];
+    if(!it) return;
+    if(state.cart[key]){ delete state.cart[key]; toast("후보에서 뺐습니다"); }
+    else{
+      state.cart[key] = { src: src, id: id, oi: Number(oi), qty: it.opts[Number(oi)].u === "p" ? 2 : 1 };
+      toast(it.title + " 담기");
+    }
+    save(); renderCart(); refreshAddButtons(); 
+  }
+  function refreshAddButtons(){
+    document.querySelectorAll("[data-add]").forEach(b => b.classList.toggle("on", !!state.cart[b.dataset.add]));
+  }
+  function rows(){
+    return Object.keys(state.cart).map(k => {
+      const c = state.cart[k];
+      const it = ALL[c.src + ":" + c.id];
+      if(!it){ return null; }
+      const o = it.opts[c.oi];
+      if(!o){ return null; }
+      return { k: k, src: c.src, id: c.id, title: it.title, opt: o.l, price: o.p, u: o.u, qty: Math.max(1, c.qty || 1) };
+    }).filter(Boolean);
+  }
+  function renderCart(){
+    const list = document.getElementById("cartList");
+    const rs = rows();
+    if(!rs.length){
+      list.innerHTML = '<div class="cart-empty">아직 담은 후보가 없습니다.<br>익스커션·스파 탭에서 <b>＋</b>를 눌러 보세요.</div>';
+    }else{
+      list.innerHTML = rs.map(r => {
+        const amount = r.u === "p" ? r.price * r.qty : r.price;
+        const stepper = r.u === "p"
+          ? '<div class="stepper"><button data-qty="-1" data-k="' + r.k + '">−</button><span>' + r.qty + '명</span><button data-qty="1" data-k="' + r.k + '">+</button></div>'
+          : '';
+        return '<div class="crow"><div class="ci"><div class="nm">' + r.title + '</div><div class="op">' + r.opt + '</div>' +
+               '<div class="pp">' + fmtV(amount) + ' VND' + (r.u === "p" ? ' <span class="muted tiny">(' + fmtV(r.price) + ' × ' + r.qty + ')</span>' : '') + '</div></div>' +
+               '<div class="right">' + stepper + '<div><button class="rm" data-rm="' + r.k + '">빼기</button></div></div></div>';
+      }).join("");
+    }
+
+    let ex = 0, sp = 0;
+    rs.forEach(r => {
+      const amount = r.u === "p" ? r.price * r.qty : r.price;
+      if(r.src === "ex") ex += amount; else sp += amount;
+    });
+    const villa = state.invilla ? sp * 0.15 : 0;
+    const total = ex + sp + villa;
+
+    document.getElementById("sumEx").textContent = fmtV(ex) + " VND";
+    document.getElementById("sumSp").textContent = fmtV(sp) + " VND";
+    document.getElementById("sumVilla").textContent = fmtV(villa) + " VND";
+    document.getElementById("rowVilla").style.display = villa > 0 ? "flex" : "none";
+    document.getElementById("sumAll").textContent = fmtV(total) + " VND";
+    document.getElementById("sumKrw").textContent = fmtK(krw(total));
+    document.getElementById("rateInput").value = state.rate;
+
+    const badge = document.getElementById("cartBadge");
+    badge.textContent = rs.length;
+    badge.classList.toggle("show", rs.length > 0);
+
+    list.querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { delete state.cart[b.dataset.rm]; save(); renderCart(); refreshAddButtons(); });
+    list.querySelectorAll("[data-qty]").forEach(b => b.onclick = () => {
+      const k = b.dataset.k, c = state.cart[k];
+      if(!c) return;
+      c.qty = Math.min(9, Math.max(1, (c.qty || 1) + Number(b.dataset.qty)));
+      save(); renderCart();
+    });
+  }
+
+  /* ============ presets ============ */
+  function setPreset(kind){
+    state.cart = {};
+    const pick = kind === "calm"
+      ? ["ex:sunset:0", "sp:sp-pkg-couple:0", "sp:sp-bath:0", "sp:sp-viet:1"]
+      : ["ex:snorkel:0", "ex:city-tour:0", "ex:hike:0", "ex:picnic:0", "sp:sp-deep:1"];
+    pick.forEach(key => {
+      const [src, id, oi] = key.split(":");
+      const it = ALL[src + ":" + id];
+      if(!it || !it.opts[Number(oi)]) return;
+      state.cart[key] = { src: src, id: id, oi: Number(oi), qty: it.opts[Number(oi)].u === "p" ? 2 : 1 };
+    });
+    save(); renderCart(); refreshAddButtons(); switchTab("calc");
+    toast(kind === "calm" ? "휴양 콤보를 담았습니다" : "액티브 콤보를 담았습니다");
+  }
+
+  /* ============ tabs & toast ============ */
+  function switchTab(tab){
+    document.querySelectorAll("nav.tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+    document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === "panel-" + tab));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  let toastTimer = null;
+  function toast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("on"), 1600);
+  }
+
+  /* ============ events ============ */
+  document.querySelectorAll("nav.tabbar button").forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+  document.getElementById("dateSeg").addEventListener("click", e => {
+    const b = e.target.closest("button[data-date]");
+    if(!b) return;
+    state.date = b.dataset.date; save();
+    document.querySelectorAll("#dateSeg button").forEach(x => x.classList.toggle("on", x.dataset.date === state.date));
+    renderTimeline();
+  });
+  document.addEventListener("change", e => {
+    if(e.target.matches("[data-ck]")){ state.checks[e.target.dataset.ck] = e.target.checked; save(); }
+    if(e.target.id === "inVilla"){ state.invilla = e.target.checked; save(); renderCart(); }
+  });
+  document.addEventListener("input", e => {
+    if(e.target.id === "rateInput"){
+      const v = parseFloat(e.target.value);
+      if(!isNaN(v) && v > 0 && v < 10){ state.rate = v; save(); 
+        let ex = 0, sp = 0;
+        rows().forEach(r => { const a = r.u === "p" ? r.price * r.qty : r.price; if(r.src === "ex") ex += a; else sp += a; });
+        const total = ex + sp + (state.invilla ? sp * 0.15 : 0);
+        document.getElementById("sumKrw").textContent = fmtK(krw(total));
+      }
+    }
+  });
+  document.addEventListener("click", e => {
+    const add = e.target.closest("[data-add]");
+    if(add){ addToCart(add.dataset.add); return; }
+    const pre = e.target.closest("[data-preset]");
+    if(pre){ setPreset(pre.dataset.preset); return; }
+  });
+
+  /* ============ init ============ */
+  renderTimeline();
+  renderChecklist();
+  renderExc();
+  renderSpa();
+  renderCart();
+  document.querySelectorAll("#dateSeg button").forEach(x => x.classList.toggle("on", x.dataset.date === state.date));
+  document.getElementById("inVilla").checked = !!state.invilla;
+})();
+</script>
+</body>
+</html>
